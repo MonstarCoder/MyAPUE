@@ -21,6 +21,8 @@ main(void)
 		 * we're done, init will reap our status.
 		 */
 		sleep(2);
+        //while (getppid() != 1)
+        //    sleep(1);
 		printf("second child, parent pid = %ld\n", (long)getppid());
 		exit(0);
 	}
