@@ -1,5 +1,7 @@
 #include "apue.h"
 #include <errno.h>
+#include <bits/signum.h>
+#include <signal.h>
 
 void
 pr_mask(const char *str)
