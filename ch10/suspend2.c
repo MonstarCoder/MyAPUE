@@ -32,7 +32,11 @@ main(void)
 		err_sys("SIG_BLOCK error");
 
 	while (quitflag == 0)
-		sigsuspend(&zeromask);
+    {
+        sigsuspend(&zeromask);
+	    if (signal(SIGINT, sig_int) == SIG_ERR)
+    		err_sys("signal(SIGINT) error");
+    }
 
 	/*
 	 * SIGQUIT has been caught and is now blocked; do whatever.
