@@ -1,7 +1,7 @@
 //#include "apue.h"
 #include "synchronous.c"
-//#include <stdio.h>
-//#include <sys/types.h>
+#include <stdio.h>
+#include <sys/types.h>
 
 int main(void)
 {
@@ -9,13 +9,15 @@ int main(void)
 
     TELL_WAIT();
 
-    if (pid = fork() < 0)
+    if ((pid = fork()) < 0)
         perror("fork errro");
     else if (pid == 0) {
         WAIT_PARENT();
-        printf("output from child\n");
+        char buf1[] = "output from child\n";
+        write(STDOUT_FILENO, buf1, sizeof(buf1) - 1);
     } else {
-        printf("output from parent\n");
+        char buf2[] = "output from parent\n";
+        write(STDOUT_FILENO, buf2, sizeof(buf2) - 1);
         TELL_CHILD(pid);
     }
 
