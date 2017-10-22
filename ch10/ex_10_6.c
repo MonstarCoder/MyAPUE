@@ -24,7 +24,7 @@ main(void)
     if ((area = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED,
       fd, 0)) == MAP_FAILED)
         err_sys("mmap error");
-    close(fd);        /* can close /dev/zero now that it's mapped */
+    close(fd);        // can close /dev/zero now that it's mapped
 
     TELL_WAIT();
 
@@ -35,6 +35,7 @@ main(void)
             if ((counter = update((long *)area)) != i)
                 err_quit("parent: expected %d, got %d", i, counter);
             printf("%d\n",counter);//the added new line
+            sleep(1);
             TELL_CHILD(pid);
             WAIT_CHILD();
         }
@@ -43,6 +44,9 @@ main(void)
             WAIT_PARENT();
             if ((counter = update((long *)area)) != i)
                 err_quit("child: expected %d, got %d", i, counter);
+            printf("%d\n",counter);//the added new line
+            sleep(1);
+            TELL_WAIT();
             TELL_PARENT(getppid());
         }
     }
