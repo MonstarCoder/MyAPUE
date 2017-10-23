@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <stdlib.h>//不完善
 #include <pthread.h>
 
 struct foo {
