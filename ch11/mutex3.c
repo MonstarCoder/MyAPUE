@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <stdlib.h>//粗粒度的锁
 #include <pthread.h>
 
 #define NHASH 29
