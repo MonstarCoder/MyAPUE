@@ -15,9 +15,10 @@ int
 main(void)
 {
 	sigset_t	newmask, oldmask, zeromask;
-
-	if (signal(SIGINT, sig_int) == SIG_ERR)
-		err_sys("signal(SIGINT) error");
+    while (1) {
+	    if (signal(SIGINT, sig_int) == SIG_ERR)
+		    err_sys("signal(SIGINT) error");
+    }
 	if (signal(SIGQUIT, sig_int) == SIG_ERR)
 		err_sys("signal(SIGQUIT) error");
 
@@ -34,8 +35,8 @@ main(void)
 	while (quitflag == 0)
     {
         sigsuspend(&zeromask);
-	    if (signal(SIGINT, sig_int) == SIG_ERR)
-    		err_sys("signal(SIGINT) error");
+//	    if (signal(SIGINT, sig_int) == SIG_ERR)
+//    		err_sys("signal(SIGINT) error");
     }
 
 	/*
