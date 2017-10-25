@@ -77,8 +77,8 @@ daemonize(const char *cmd)
 	}
 }
 
-int main()
-{
-    daemonize("test");
-    return 0;
-}
+//int main()
+//{
+//    daemonize("test");
+//    return 0;
+//}
