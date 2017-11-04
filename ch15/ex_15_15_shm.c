@@ -14,11 +14,6 @@ update(long *ptr)
 	return((*ptr)++);	/* return value before increment */
 }
 
-
-
-
-
-
 int
 main(void)
 {
@@ -29,8 +24,10 @@ main(void)
 
 	if ((fd = open("/dev/zero", O_RDWR)) < 0)
 		err_sys("open error");
-	if ((shmid = shmget(IPC_PRIVATE, BUF_SIZE, IPC_CREAT | 0666)) == -1)
+	if ((shmid = shmget(IPC_PRIVATE, SIZE, IPC_CREAT | 0666)) == -1)
 		err_sys("Shared Memory Created error");
+	area = shmat(shmid, NULL, 0);
+
 	close(fd);		/* can close /dev/zero now that it's mapped */
 
 	TELL_WAIT();
@@ -41,7 +38,6 @@ main(void)
 		for (i = 0; i < NLOOPS; i += 2) {
 			if ((counter = update((long *)area)) != i)
 				err_quit("parent: expected %d, got %d", i, counter);
-            printf("%d\n", counter);
 
 			TELL_CHILD(pid);
 			WAIT_CHILD();
@@ -52,7 +48,6 @@ main(void)
 
 			if ((counter = update((long *)area)) != i)
 				err_quit("child: expected %d, got %d", i, counter);
-            printf("%d\n", counter);
 
 			TELL_PARENT(getppid());
 		}
