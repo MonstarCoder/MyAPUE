@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	char buf[1024] = "";
 	long *lastoffptr;
 	
-	shmid=shmget(IPC_PRIVATE, BUF_SIZE, IPC_CREAT | 0666);
+	shmid = shmget(IPC_PRIVATE, BUF_SIZE, IPC_CREAT | 0666);
 	
 	if(shmid == -1)
 	{
