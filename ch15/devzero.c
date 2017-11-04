@@ -19,12 +19,12 @@ main(void)
 	pid_t	pid;
 	void	*area;
 
-//	if ((fd = open("/dev/zero", O_RDWR)) < 0)
-//		err_sys("open error");
-	if ((area = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED,
+	if ((fd = open("/dev/zero", O_RDWR)) < 0)
+		err_sys("open error");
+	if ((area = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED,
 	  -1, 0)) == MAP_FAILED)
 		err_sys("mmap error");
-//	close(fd);		/* can close /dev/zero now that it's mapped */
+	close(fd);		/* can close /dev/zero now that it's mapped */
 
 	TELL_WAIT();
 
