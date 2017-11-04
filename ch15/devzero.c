@@ -22,7 +22,7 @@ main(void)
 	if ((fd = open("/dev/zero", O_RDWR)) < 0)
 		err_sys("open error");
 	if ((area = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED,
-	  -1, 0)) == MAP_FAILED)
+	  fd, 0)) == MAP_FAILED)
 		err_sys("mmap error");
 	close(fd);		/* can close /dev/zero now that it's mapped */
 
@@ -34,7 +34,6 @@ main(void)
 		for (i = 0; i < NLOOPS; i += 2) {
 			if ((counter = update((long *)area)) != i)
 				err_quit("parent: expected %d, got %d", i, counter);
-            printf("%d\n", counter);
 
 			TELL_CHILD(pid);
 			WAIT_CHILD();
@@ -45,7 +44,6 @@ main(void)
 
 			if ((counter = update((long *)area)) != i)
 				err_quit("child: expected %d, got %d", i, counter);
-            printf("%d\n", counter);
 
 			TELL_PARENT(getppid());
 		}
