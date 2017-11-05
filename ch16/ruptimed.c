@@ -3,6 +3,8 @@
 #include <errno.h>
 #include <syslog.h>
 #include <sys/socket.h>
+#include "initsrv1.c"
+#include "daemonize.c"
 
 #define BUFLEN	128
 #define QLEN 10
