@@ -1,4 +1,5 @@
 #include "apue.h"
+#include "signal.c"
 
 volatile sig_atomic_t	quitflag;	/* set nonzero by signal handler */
 
@@ -15,10 +16,10 @@ int
 main(void)
 {
 	sigset_t	newmask, oldmask, zeromask;
-    while (1) {
+    /*while (1) {*/
 	    if (signal(SIGINT, sig_int) == SIG_ERR)
 		    err_sys("signal(SIGINT) error");
-    }
+    /*}*/
 	if (signal(SIGQUIT, sig_int) == SIG_ERR)
 		err_sys("signal(SIGQUIT) error");
 
